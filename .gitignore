@@ -1,6 +1,4 @@
 /node_modules
 Express CRUD.postman_collection.json
-Dockerfile
-docker-compose.yml
 .dockerignore
 .env

@@ -1,0 +1,17 @@
+version: "3"
+services:
+  node-app:
+    build: .
+    ports:
+      - "2000:2000"
+    env_file:
+      - ./.env
+  mongo-db:
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=kala
+      - MONGO_INITDB_ROOT_PASSWORD=pw
+    volumes:
+      - mongodb:/data/db
+volumes:
+  mongodb:
