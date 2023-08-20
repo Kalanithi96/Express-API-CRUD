@@ -6,6 +6,8 @@ const {
     MONGO_PORT
 } = require('./../config/config');
 
+const mongoURL = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/?authSource=admin`
+
 const connectDB = (url) => {
     /* 
     For remote Mongo DB
@@ -14,12 +16,23 @@ const connectDB = (url) => {
         useUnifiedTopology: true
     }) 
     */
-    const mongoURL = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/?authSource=admin`
-    
+
     return mongoose.connect(mongoURL ,{
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })
+}
+
+const connectWithRetry = () => {
+    mongoose.connect(mongoURL ,{
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
+    .then(() => console.log("Successfully connected"))
+    .catch((e) => {
+        console.log(e)
+        setTimeout(connectWithRetry, 5000)
+    });
 }
 
 module.exports = connectDB;
