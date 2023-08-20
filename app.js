@@ -7,7 +7,7 @@ const user = require('./Routes/user.js');
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
-app.use('/api/user',user);
+app.use('/api/v1/user',user);
 
 app.get('/',(req,res)=>{
     res.send('Hi!!!');
