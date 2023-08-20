@@ -1,9 +1,9 @@
 const express = require('express')
-const { readAllUsers,
-    deleteOneUser,
-    updateOneUser,
-    readOneUser,
-    createNewUser} = require('./../controller/userController');
+const { readAllPosts,
+    deleteOnePost,
+    updateOnePost,
+    readOnePost,
+    createNewPost} = require('../controller/postController');
 const router = express.Router()
 
 const logger = (req,res,next)=>{
@@ -16,13 +16,13 @@ const logger = (req,res,next)=>{
 
 router
     .route('/')
-    .get(logger,readAllUsers)
-    .post(createNewUser);
-    
+    .get(logger,readAllPosts)
+    .post(createNewPost);
+
 router
     .route('/:id')
-    .delete(deleteOneUser)
-    .patch(updateOneUser)
-    .get(readOneUser);
+    .delete(deleteOnePost)
+    .patch(updateOnePost)
+    .get(readOnePost);
 
 module.exports = router;

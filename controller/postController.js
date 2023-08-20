@@ -1,9 +1,9 @@
-const User = require('./../models/user');
+const Post = require('../models/post');
 
-const readAllUsers = async (req,res)=>{
+const readAllPosts = async (req,res)=>{
 
     try{
-        const data = await User.find({})
+        const data = await Post.find({})
         res.status(200).json({meassage:"Read successful", data:data});
     }catch(e){
         console.log(e);
@@ -12,11 +12,11 @@ const readAllUsers = async (req,res)=>{
     return res;
 }
 
-const createNewUser = async (req,res)=>{
-    const {name,phone} = req.body;
+const createNewPost = async (req,res)=>{
+    const {title,body} = req.body;
     try{
-        const New = await User.create({"name":name,"phone":phone})
-        res.status(200).json({message:"User created", data:New});
+        const New = await Post.create({"title":title,"body":body})
+        res.status(200).json({message:"Post created", data:New});
     }catch(e){
         console.log(e);
         res.status(400);
@@ -24,12 +24,12 @@ const createNewUser = async (req,res)=>{
     return res;
 }
 
-const updateOneUser = async (req,res)=>{
+const updateOnePost = async (req,res)=>{
     const id = req.params.id;
-    const {name,phone} = req.body;
+    const {title,body} = req.body;
     let data;
     try {
-        data = await User.findByIdAndUpdate(id,{name,phone},{
+        data = await Post.findByIdAndUpdate(id,{title,body},{
             runValidators: true
         });   
         res.status(200).json({message:"Update successful", data:data});
@@ -40,10 +40,10 @@ const updateOneUser = async (req,res)=>{
     return res;
 }
 
-const deleteOneUser = async (req,res)=>{
+const deleteOnePost = async (req,res)=>{
     const id = req.params.id;
     try{
-        const d = await User.findByIdAndDelete(id)
+        const d = await Post.findByIdAndDelete(id)
         res.status(200).json({message:"Delete successful", data:data, d:d});
     }catch(e){
         res.status(400)
@@ -52,12 +52,12 @@ const deleteOneUser = async (req,res)=>{
     return res;
 }
 
-const readOneUser = async (req,res)=>{
+const readOnePost = async (req,res)=>{
     const id = req.params.id;
     console.log(id);
     let data;
     try {
-        data = await User.findById(id);   
+        data = await Post.findById(id);   
         res.status(200).json({message:"Read successful", data:data});
     } catch (error) {
         console.log(error);
@@ -67,9 +67,9 @@ const readOneUser = async (req,res)=>{
 }
 
 module.exports = {
-    readAllUsers,
-    deleteOneUser,
-    updateOneUser,
-    readOneUser,
-    createNewUser
+    readAllPosts,
+    deleteOnePost,
+    updateOnePost,
+    readOnePost,
+    createNewPost
 };

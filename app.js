@@ -2,12 +2,12 @@ require('dotenv').config();
 const express = require('express');
 const app = express()
 const connectDB = require('./db/connectDB')
-const user = require('./Routes/user.js');
+const post = require('./Routes/post.js');
 
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
-app.use('/api/v1/user',user);
+app.use('/api/v1/post',post);
 
 app.get('/',(req,res)=>{
     res.send('Hi!!!');
