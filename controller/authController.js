@@ -5,7 +5,7 @@ const signUp = async (req, res) => {
   const { username, password } = req.body;
   const hash = await bcrypt.hash(password, 12);
   try {
-    const New = await User.create({ username: username, password: password });
+    const New = await User.create({ username: username, password: hash });
     res.status(201).json({
       message: "User created",
       data: New,
