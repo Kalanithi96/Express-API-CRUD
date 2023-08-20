@@ -10,11 +10,11 @@ app.use(express.urlencoded({extended:false}))
 app.use('/api/user',user);
 
 app.get('/',(req,res)=>{
-    res.send('Hi!!');
+    res.send('Hi!!!');
 })
 
 const start = async()=>{
-    const port = (process.env.MONGO_URI)?process.env.MONGO_URI:2000;
+    const port = (process.env.PORT)?process.env.PORT:2000;
     try{
         await connectDB(process.env.MONGO_URI)
             .then(()=>console.log("Connected to MongoDB!!!"));
