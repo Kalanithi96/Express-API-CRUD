@@ -14,7 +14,15 @@ const logger = (req,res,next)=>{
     //res.end(req.url);
 }
 
-router.route('/').get(logger,readAllUsers).post(createNewUser);
-router.route('/:id').delete(deleteOneUser).patch(updateOneUser).get(readOneUser);
+router
+    .route('/')
+    .get(logger,readAllUsers)
+    .post(createNewUser);
+    
+router
+    .route('/:id')
+    .delete(deleteOneUser)
+    .patch(updateOneUser)
+    .get(readOneUser);
 
 module.exports = router;
