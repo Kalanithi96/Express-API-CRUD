@@ -18,7 +18,9 @@ const updateOneUser = async (req,res)=>{
     const {name,phone} = req.body;
     let data;
     try {
-        data = await User.findByIdAndUpdate(id,{name,phone});   
+        data = await User.findByIdAndUpdate(id,{name,phone},{
+            runValidators: true
+        });   
     } catch (error) {
         console.log(error);
     }
