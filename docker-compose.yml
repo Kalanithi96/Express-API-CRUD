@@ -15,5 +15,7 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=pw
     volumes:
       - mongodb:/data/db
+  redis-db:
+    image: redis
 volumes:
   mongodb:

@@ -1,9 +1,36 @@
 require('dotenv').config();
 const express = require('express');
-const app = express()
-const connectDB = require('./db/connectDB')
+const app = express();
+const connectDB = require('./db/connectMongoDB');
+
 const post = require('./Routes/post.js');
 const auth = require('./Routes/auth.js');
+
+const {
+    REDIS_PORT,
+    REDIS_URL,
+    SESSION_SECRET
+} = require('./config/config');
+
+const session = require('express-session');
+const redis = require('redis');
+const RedisStore = require('connect-redis').default;
+
+let redisClient = redis.createClient({
+    host: REDIS_URL,
+    port: REDIS_PORT
+});
+
+
+app.use(session({
+    store: new RedisStore({client: redisClient}),
+    secret: SESSION_SECRET,
+    cookie: {
+        secure: false,
+        httpOnly: true,
+        maxAge: 30000
+    }
+}));
 
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
