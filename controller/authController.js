@@ -4,8 +4,10 @@ const bcrypt = require("bcryptjs");
 const signUp = async (req, res) => {
   const { username, password } = req.body;
   const hash = await bcrypt.hash(password, 12);
+  
   try {
     const New = await User.create({ username: username, password: hash });
+    req.session.user = username;
     res.status(201).json({
       message: "User created",
       data: New,

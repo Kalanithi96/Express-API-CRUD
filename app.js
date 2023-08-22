@@ -8,23 +8,22 @@ const auth = require('./Routes/auth.js');
 
 const {
     REDIS_PORT,
-    REDIS_URL,
+    REDIS_HOST,
     SESSION_SECRET
 } = require('./config/config');
 
 const session = require('express-session');
-const redis = require('redis');
-const RedisStore = require('connect-redis').default;
+const {createClient} = require('redis');
+const RedisStore = require("connect-redis").default
 
-let redisClient = redis.createClient({
-    host: REDIS_URL,
-    port: REDIS_PORT
-});
-
+let redisClient = createClient({url:`redis://${REDIS_HOST}:${REDIS_PORT}`});
+redisClient.connect().catch(e => console.log("Error in connecting with Redis",e))
 
 app.use(session({
     store: new RedisStore({client: redisClient}),
-    secret: SESSION_SECRET,
+    secret: SESSION_SECRET||"secret",
+    resave: false,
+    saveUninitialized: false,
     cookie: {
         secure: false,
         httpOnly: true,
@@ -43,7 +42,7 @@ app.get('/',(req,res)=>{
 })
 
 const start = async()=>{
-    const port = (process.env.PORT)?process.env.PORT:2000;
+    const port = process.env.PORT || 2000;
     try{
         await connectDB(process.env.MONGO_URI)
             .then(()=>console.log("Connected to MongoDB!!!"));
