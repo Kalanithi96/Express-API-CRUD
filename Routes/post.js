@@ -4,7 +4,8 @@ const { readAllPosts,
     updateOnePost,
     readOnePost,
     createNewPost} = require('../controller/postController');
-const router = express.Router()
+const {protect} = require('./../middleware/protect');
+const router = express.Router();
 
 const logger = (req,res,next)=>{
     console.log(req.method);
@@ -16,13 +17,13 @@ const logger = (req,res,next)=>{
 
 router
     .route('/')
-    .get(logger,readAllPosts)
-    .post(createNewPost);
+    .get(logger,protect,readAllPosts)
+    .post(protect,createNewPost);
 
 router
     .route('/:id')
-    .delete(deleteOnePost)
-    .patch(updateOnePost)
-    .get(readOnePost);
+    .delete(protect,deleteOnePost)
+    .patch(protect,updateOnePost)
+    .get(protect,readOnePost);
 
 module.exports = router;
