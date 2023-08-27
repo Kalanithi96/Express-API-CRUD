@@ -1,1 +1,4 @@
 /node_modules
+Express CRUD.postman_collection.json
+.dockerignore
+.env

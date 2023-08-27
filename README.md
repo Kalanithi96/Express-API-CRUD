@@ -1,16 +1,17 @@
 # Express API CRUD
 
-Schema used to handle user data:
+Schema used to handle Post data:
   {
-    name: String,
-    phone: Number
+    title: String,
+    body: String
   }
 
 An API that contains one endpoint each for:
-  1. Read all user data from DB
-  2. Read data of one user
-  3. Delete data of one user
-  4. Update data of one user
-  5. Create data for a user
+  1. Read all Post data from DB
+  2. Read data of one Post
+  3. Delete data of one Post
+  4. Update data of one Post
+  5. Create data for a Post
 
-In order to run the project, setup .env and set MONGO_URI variable equal to DB connection string.
+This API is put inside a Node container and connected to a Mongo container in same network.
+Redis container is used to store the session data.

@@ -1,14 +1,13 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    name:{
+    username:{
         type:String,
         required:true,
-        trim:true,
-        maxLength:[20,"Length must be less than 20 characters"]
+        unique:true
     },
-    phone:{
-        type:Number,
+    password:{
+        type:String,
         required:true
     }
 });
